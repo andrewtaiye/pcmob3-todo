@@ -3,47 +3,30 @@ import React, { useState, useEffect } from "react";
 import { StyleSheet, Text, View, TouchableOpacity, FlatList } from 'react-native';
 import { createStackNavigator } from '@react-navigation/stack';
 import { NavigationContainer, useNavigation, StackActions } from '@react-navigation/native';
-import { Entypo } from '@expo/vector-icons';
-import * as SQLite from "expo-sqlite";
 
+import { Entypo } from '@expo/vector-icons';
+
+import * as SQLite from "expo-sqlite";
 const db = SQLite.openDatabase("notes.db");
 
 import NotesStack from "./views/NotesStack";
+import AddScreen from "./views/AddScreen";
 
-// ====================================================================================
 
 const Stack = createStackNavigator();
 
 export default function App() {
   return (
     <NavigationContainer>
-      <Stack.Navigator>
+      <Stack.Navigator mode="modal" headerMode="none">
         <Stack.Screen
-          name={"Notes"}
+          name={"Notes Stack"}
           component={NotesStack}
           options={{
-            headerTitle: "Note-ify",
-            headerTitleStyle: {
-              fontWeight: "bold",
-              fontSize: 30,
-            },
-            headerStyle: {
-              backgroundColor: 'yellow',
-              height: 110,
-              borderBottomWidth: 1,
-              borderBottomColor: 'black',
-            }
+            headerShown: false,
           }}/>
+          <Stack.Screen name="Add Note" component={AddScreen} />
       </Stack.Navigator>
     </NavigationContainer>
   );
 }
-
-const styles = StyleSheet.create({
-  container: {
-    flex: 1,
-    backgroundColor: '#ffb',
-    alignItems: 'center',
-    justifyContent: 'center',
-  },
-});
