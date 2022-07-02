@@ -1,9 +1,16 @@
 import { StatusBar } from 'expo-status-bar';
-import { StyleSheet, Text, View } from 'react-native';
+import React, { useState, useEffect } from "react";
+import { StyleSheet, Text, View, TouchableOpacity, FlatList } from 'react-native';
 import { createStackNavigator } from '@react-navigation/stack';
 import { NavigationContainer, useNavigation, StackActions } from '@react-navigation/native';
+import { Entypo } from '@expo/vector-icons';
+import * as SQLite from "expo-sqlite";
 
-import HomeStack from "./views/HomeStack";
+const db = SQLite.openDatabase("notes.db");
+
+import NotesStack from "./views/NotesStack";
+
+// ====================================================================================
 
 const Stack = createStackNavigator();
 
@@ -13,7 +20,7 @@ export default function App() {
       <Stack.Navigator>
         <Stack.Screen
           name={"Notes"}
-          component={HomeStack}
+          component={NotesStack}
           options={{
             headerTitle: "Note-ify",
             headerTitleStyle: {
@@ -35,7 +42,7 @@ export default function App() {
 const styles = StyleSheet.create({
   container: {
     flex: 1,
-    backgroundColor: '#fff',
+    backgroundColor: '#ffb',
     alignItems: 'center',
     justifyContent: 'center',
   },
