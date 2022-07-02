@@ -5,10 +5,8 @@ import { createStackNavigator } from '@react-navigation/stack';
 import { NavigationContainer, useNavigation, StackActions } from '@react-navigation/native';
 import { Entypo } from '@expo/vector-icons';
 
-export default function NotesScreen({ navigation }) {
-  const [notes, setNotes] = useState([
-    {title: "Sleep", done: false, id: "0"},
-  ]);
+export default function NotesScreen({ navigation, route }) {
+  const [notes, setNotes] = useState([]);
 
   useEffect(() => {
     navigation.setOptions({
@@ -23,6 +21,17 @@ export default function NotesScreen({ navigation }) {
       )
     });
   });
+
+  useEffect(() => {
+    if (route.params?.text) {
+      const newNote = {
+        title: route.params.text,
+        done: false,
+        id: notes.length.toString(),
+      }
+      setNotes([...notes, newNote]);
+    }
+  }, [route.params?.text]);
 
   function addNote() {
     navigation.navigate("Add Note");
