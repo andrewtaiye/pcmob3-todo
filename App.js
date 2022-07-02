@@ -6,9 +6,6 @@ import { NavigationContainer, useNavigation, StackActions } from '@react-navigat
 
 import { Entypo } from '@expo/vector-icons';
 
-import * as SQLite from "expo-sqlite";
-const db = SQLite.openDatabase("notes.db");
-
 import NotesStack from "./views/NotesStack";
 import AddScreen from "./views/AddScreen";
 
